@@ -1,0 +1,45 @@
+{
+  "kind": "collectionType",
+  "collectionName": "dishes",
+  "info": {
+    "singularName": "dishe",
+    "pluralName": "dishes",
+    "displayName": "dishes",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string"
+    },
+    "price": {
+      "type": "decimal"
+    },
+    "guys": {
+      "type": "enumeration",
+      "enum": [
+        "first",
+        "second",
+        "dessert"
+      ]
+    },
+    "image": {
+      "type": "media",
+      "multiple": true,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "allergen": {
+      "type": "component",
+      "repeatable": true,
+      "component": "allergen.allergen"
+    }
+  }
+}
