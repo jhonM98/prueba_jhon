@@ -1,5 +1,40 @@
+
 export default {
-  async beforeCreate(event) {
+
+  async beforeUpdate(event) {
+
+    const { data } = event.params;
+    const ctx = strapi.requestContext.get();
+    const { params } = ctx;
+    const { id } = params;
+    
+    const dishes = await strapi.documents('api::daily-menu.daily-menu').findOne({
+      documentId: id,
+      populate: {
+        first:{
+          fields:['name','price'],
+        },
+        second:{
+          fields:['name','price'],
+        },
+        dessert:{
+          fields:['name','price'],
+        }
+      }
+
+    })
+    
+    const { first, second, dessert } = dishes;
+
+    const suma = (first?.price ?? 0) + (second?.price ?? 0) + (dessert?.price ?? 0);
+    
+    console.log('suma', suma) 
+
+    data.sumPrice = suma;
+    
+  },
+
+  /*async beforeCreate(event) {
     const { data } = event.params;
 
     // Calcular Sum_Precio con impuestos
@@ -29,5 +64,5 @@ export default {
       }
       categoriasPlatos.add(plato.categoria);
     }
-  }
+  }*/
 };
