@@ -1,4 +1,5 @@
-export default {
+import { factories } from '@strapi/strapi';
+/*export default {
   calculatePrice(platos: any[], tipoMenu: string) {
     let totalPrecio = 0;
 
@@ -8,9 +9,7 @@ export default {
 
     // Aplicar impuestos según tipo de menú
     const impuestos = {
-      'menu_estandar': 0.1,  // 10%
-      'menu_gourmet': 0.15,  // 15%
-      'menu_vegano': 0.05,   // 5%
+      'menu_estandar': 0.1,  
     };
 
     const impuesto = impuestos[tipoMenu] || 0;
@@ -18,4 +17,13 @@ export default {
 
     return totalPrecio;
   },
-};
+};*/
+
+export default factories.createCoreService('api::daily-menu.daily-menu',({strapi}) => ({ 
+  strapi,
+  async calculatePrice (hhhh:string){
+    console.log('hhhh', hhhh)
+    return hhhh
+  }
+}
+));
