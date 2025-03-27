@@ -65,4 +65,5 @@ export default {
       categoriasPlatos.add(plato.categoria);
     }
   }*/
+ //cambios de jhon
 };
