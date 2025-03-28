@@ -1,3 +1,4 @@
+
 export default {
   async getDesserts(ctx) {
     const desserts = await strapi
@@ -22,7 +23,91 @@ export default {
     });
     ctx.send(price);
   },
-/*
+
+  async filterByAllergens(ctx) {
+    const { exclude.allergen } = ctx.query;
+    const allergensToExclude = exclude.allergen.split(',');
+    const filteredMenus = await strapi.query('api::daily-menu.daily-menu').findMany({
+      where: {
+        allergens: {
+          $nin: allergensToExclude,
+        },
+      },
+    });
+    ctx.send({ data: filteredMenus });
+  },
+
+  async getPopularDishes(ctx) {
+    const popularDishes = await strapi.query('api::dishe.dishe').findMany({
+      where: {
+        popularity: { $gte: 10 },
+      },
+      orderBy: { popularity: 'desc' },
+      limit: 10,
+    });
+    ctx.send({ data: popularDishes });
+  },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /*
   async filterByAllergens(ctx) {
     const { exclude_allergens } = ctx.query;
     const alergeneosList = exclude_allergens.allergens.split(",");
