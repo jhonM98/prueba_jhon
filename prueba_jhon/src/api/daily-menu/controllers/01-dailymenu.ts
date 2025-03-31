@@ -66,7 +66,7 @@ export default {
 
       return !firstAller && !secondAller && !dessertAller
   })
-
   return ctx.send({data: filterss})
   },
+
 };

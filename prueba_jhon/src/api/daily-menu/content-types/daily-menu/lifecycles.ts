@@ -1,4 +1,7 @@
 import { errors } from '@strapi/utils'
+import dishe from '../../../dishe/routes/dishe';
+import { constants } from 'buffer';
+import dailyMenu from '../../controllers/daily-menu';
 
 export default {
 
@@ -36,8 +39,8 @@ export default {
     console.log(dishes);
     console.log(first?.documentId)
 
-    const calculate = await strapi.service('api::daily-menu.service').calculatePrice(5);
-    console.log('lifecycles', calculate)
+    const calculate = await strapi.service('api::daily-menu.service').calculatePrice(id);
+    data.price = calculate;
 
     
   },
@@ -77,8 +80,5 @@ export default {
     if(second?.documentId === dessert?.documentId){
       throw new ApplicationError('El segundo plato no puede ser igual al postre') 
     }
-  }
-
-
-  
+  }, 
 };
