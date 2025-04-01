@@ -60,13 +60,41 @@ export default {
     const filterss = menusAllergens.filter(m =>{
       const { first, second, dessert } = m;
 
-      const firstAller  = first?.allergen.some(al => excludeAllergen.includes(al.name));
-      const secondAller  = second?.allergen.some(al => excludeAllergen.includes(al.name));
-      const dessertAller  = dessert?.allergen.some(al => excludeAllergen.includes(al.name));
+      const firstPlato  = first?.allergen.some(al => excludeAllergen.includes(al.name));
+      const secondPlato  = second?.allergen.some(al => excludeAllergen.includes(al.name));
+      const dessertPlato  = dessert?.allergen.some(al => excludeAllergen.includes(al.name));
 
-      return !firstAller && !secondAller && !dessertAller
-  })
-  return ctx.send({data: filterss})
+      return !firstPlato && !secondPlato && !dessertPlato
+    })
+
+    return ctx.send({data: filterss})
+  },
+  async getPopularDishes(ctx) {
+  const menuDishes = await strapi.documents("api::daily-menu.daily-menu").findMany({
+    fields: ["menuOfTheDay"],
+    populate: {
+      first: {
+        fields: ["name"]
+      },
+      second:{
+        fields:["name"]
+      },
+      dessert: {
+        fields: ["name"]
+      },
+    },
+  });
+  const popularDishes = menuDishes.flatMap((menuDishes) => [
+  menuDishes.first?.name,
+  menuDishes.second?.name,
+  menuDishes.dessert?.name,
+  ]).filter(Boolean);
+  const topDishes = popularDishes.slice(0,2);
+
+  if (topDishes.length === 0) {
+    return ctx.badRequest("No se encuentran platos favoritos o populares");
+  }
+  return ctx.send(topDishes);
   },
 
 };

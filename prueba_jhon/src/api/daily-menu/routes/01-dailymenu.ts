@@ -27,7 +27,7 @@ export default{
         middlewares: [],
       },
     },
-    /*{
+    {
       method: "GET",
       path: "/daily-menus/populardishes",
       handler: "01-dailymenu.getPopularDishes",
@@ -35,6 +35,6 @@ export default{
         policies: [],
         middlewares: [],
       },
-    },*/
+    },
 ]
 }
