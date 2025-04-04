@@ -31,18 +31,12 @@ export default {
     const { first, second, dessert } = dishes;
 
     const suma = (first?.price ?? 0) + (second?.price ?? 0) + (dessert?.price ?? 0);
-    
-    console.log('suma', suma) 
-
+  
     data.sumPrice = suma;
 
-    console.log(dishes);
-    console.log(first?.documentId)
-
     const calculate = await strapi.service('api::daily-menu.service').calculatePrice(id);
-    data.price = calculate; //servicio integrado//
+    data.price = calculate; //servicio integrado de precio//
 
-    
   },
   async afterUpdate(event) {
     const { ApplicationError } = errors
@@ -67,9 +61,6 @@ export default {
     })
     
     const { first, second, dessert } = dishes;
-
-    console.log(dishes);
-    console.log(first?.documentId)
 
     if(first && second && first?.documentId === second?.documentId){
       throw new ApplicationError('El primer plato no puede ser igual al segundo plato')    

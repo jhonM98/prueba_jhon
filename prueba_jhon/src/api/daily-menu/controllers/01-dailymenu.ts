@@ -10,6 +10,7 @@ export default {
             fields: ["name", "price"],
           },
         },
+        status: "published",
       });
 
     ctx.send(desserts);
@@ -24,9 +25,9 @@ export default {
   },
 
   async getAllergens(ctx) {
+   try {
     const {excludeAllergen} = ctx.request.query;
     const allergen = excludeAllergen.split(",");
-    console.log(allergen)
 
     const menusAllergens = await strapi.documents("api::daily-menu.daily-menu").findMany({ 
       populate: {
@@ -51,11 +52,10 @@ export default {
             }
           }
         },
-      }
-
+      },
+      status: "published"
     });
     ctx.send(menusAllergens);
-    console.log(menusAllergens);
 
     const filterss = menusAllergens.filter(m =>{
       const { first, second, dessert } = m;
@@ -68,7 +68,11 @@ export default {
     })
 
     return ctx.send({data: filterss})
+   } catch (error) {
+    console.log("necesitas pasar datos")
+   }
   },
+  
   async getPopularDishes(ctx) {
   const menuDishes = await strapi.documents("api::daily-menu.daily-menu").findMany({
     fields: ["menuOfTheDay"],
@@ -83,6 +87,7 @@ export default {
         fields: ["name"]
       },
     },
+    status: "published",
   });
   const popularDishes = menuDishes.flatMap((menuDishes) => [
   menuDishes.first?.name,

@@ -25,7 +25,7 @@ export default factories.createCoreService('api::daily-menu.daily-menu', ({ stra
     return calculo
    }
     catch (error) {
-      console.log("Error del calculo", error);
+
     }
   },
 }));
