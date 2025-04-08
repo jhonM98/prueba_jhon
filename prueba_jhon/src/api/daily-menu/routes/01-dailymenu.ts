@@ -40,8 +40,9 @@ export default{
 }
 
 // http://localhost:1337/api/daily-menus?populate=dessert - postres
-//http://localhost:1337/api/daily-menus?filters[price][$gte]=5.5&filters[price][$lte]=22 filtros de precio
-// /api/daily-menus/allergens
+
+// /api/daily-menus/allergens?excludeAllergen=seafood
 // /api/daily-menus/populardishes
 // /api/daily-menus/desserts
 // /api/daily-menus/price
+// http://localhost:1337/api/daily-menus?filters[price][$gte]=5&filters[price][$lte]=22 filtros de precios
